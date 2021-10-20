@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'reddit',
+    'reddit_app',
     'rest_framework',
     'rest_framework.authtoken'
 

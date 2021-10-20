@@ -14,9 +14,6 @@ from django.contrib.auth import authenticate
 from django.shortcuts import render, redirect
 from rest_framework.views import APIView
 
-
-
-
 # Create your views here.
 class Overview(APIView):
     def get(self,request):

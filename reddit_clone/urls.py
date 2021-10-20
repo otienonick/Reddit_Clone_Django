@@ -22,6 +22,7 @@ from rest_framework.authtoken.views import obtain_auth_token
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('reddit.urls')),
+    path('',include('reddit_app.urls')),
     path('api-token-auth/',obtain_auth_token)
 ]
  
