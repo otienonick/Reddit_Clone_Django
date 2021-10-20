@@ -26,6 +26,7 @@ class Overview(APIView):
             'single-post':'/posts/<int:pk>',
             'create-post':'/posts',
             'delete-post':'/posts/<int:pk>',
+            'vote':'/posts/<int:pk>/vote',
             'signup':'/signup',
             'login':'/login',
 
