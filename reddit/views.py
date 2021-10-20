@@ -22,12 +22,12 @@ class Overview(APIView):
     def get(self,request):
 
         api_urls = {
-            'postlist': 'api/posts',
-            'single-post':'api/posts/<int:pk>',
-            'create-post':'api/posts',
-            'delete-post':'api/posts/<int:pk>',
-            'signup':'api/signup',
-            'login':'api/login',
+            'postlist': '/posts',
+            'single-post':'/posts/<int:pk>',
+            'create-post':'/posts',
+            'delete-post':'/posts/<int:pk>',
+            'signup':'/signup',
+            'login':'/login',
 
         }
 
