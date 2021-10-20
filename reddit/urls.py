@@ -11,6 +11,6 @@ urlpatterns = [
     #Authentication
     path('signup',views.signup),
     path('login',views.login),
-    path('logout',views.logout),
+    # path('logout',views.logout),
 
 ]
