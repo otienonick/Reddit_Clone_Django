@@ -1,6 +1,6 @@
+from django.shortcuts import render
 from django.http import JsonResponse
 from rest_framework.exceptions import ValidationError
-from django.shortcuts import render
 from rest_framework import generics, permissions,mixins, status
 from .models import Post,Vote
 from .serializers import PostSerializer,VoteSerializer
@@ -11,6 +11,10 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
+from django.shortcuts import render, redirect
+
+
+
 # Create your views here.
 
 
@@ -42,6 +46,7 @@ def login(request):
             return JsonResponse({'token':str(token)},status = 200)
 
 
+
 class PostList(generics.ListCreateAPIView):
         queryset = Post.objects.all()
         serializer_class = PostSerializer
@@ -70,6 +75,18 @@ class VoteCreate(generics.CreateAPIView,mixins.DestroyModelMixin):
                 return Response(status = status.HTTP_204_NO_CONTENT)
             else:
                 raise ValidationError('you never voted for this post!')
+
+class PostDelete(generics.RetrieveDestroyAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def delete(self, request, *args, **kwargs):
+        post = Post.objects.filter(pk=kwargs['pk'], poster=self.request.user)
+        if post.exists():
+            return self.destroy(request, *args, **kwargs)
+        else:
+            raise ValidationError('This isn\'t your post to delete!')                
            
 
 
