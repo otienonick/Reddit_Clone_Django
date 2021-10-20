@@ -12,10 +12,26 @@ from django.db import IntegrityError
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
 from django.shortcuts import render, redirect
+from rest_framework.views import APIView
+
 
 
 
 # Create your views here.
+class Overview(APIView):
+    def get(self,request):
+
+        api_urls = {
+            'postlist': 'api/posts',
+            'single-post':'api/posts/<int:pk>',
+            'create-post':'api/posts',
+            'delete-post':'api/posts/<int:pk>',
+            'signup':'api/signup',
+            'login':'api/login',
+
+        }
+
+        return Response(api_urls)
 
 
 @csrf_exempt
@@ -84,11 +100,11 @@ class PostDelete(generics.RetrieveDestroyAPIView):
     def delete(self, request, *args, **kwargs):
         post = Post.objects.filter(pk=kwargs['pk'], poster=self.request.user)
         if post.exists():
+            
             return self.destroy(request, *args, **kwargs)
         else:
             raise ValidationError('This isn\'t your post to delete!')                
            
-
 
     
      
